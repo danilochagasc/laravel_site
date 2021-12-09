@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuadraController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,14 @@ Route::get('/', function () {
     return view('inicial');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/', 'App\Http\Controllers\Initial\InicioController@index');
+// Route::get('/', [InicioController::class, "index"]);
+Route::get('/usuario', [InicioController::class, "user"]);
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+      return view('dashboard');
+    })->name('dashboard');
+    Route::resource("quadra", QuadraController::class);
+  });
 
