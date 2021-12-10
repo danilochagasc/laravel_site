@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
 use App\Http\Controllers\Controller;
 use App\Models\Adotante;
 use App\Traits\ApiResponse;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class QuadraController extends Controller
 {
+  use ApiResponse;
     /**
      * Display a listing of the resource.
      *
@@ -26,10 +26,6 @@ class QuadraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,23 +35,7 @@ class QuadraController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nome' => 'required|max:250',
-            'modalidade' => 'required|max:250',
-            'latitude' => 'required|max:250',
-            'longitude' => 'required|max:250',
-          ]);
-          if ($validated) {
-            $quadra = new Quadra();
-            $quadra->user_id = $request->user()->id;
-            $quadra->nome = $request->get('nome');
-            $quadra->modalidade = $request->get('modalidade');
-            $quadra->latitude = $request->get('latitude');
-            $quadra->longitude = $request->get('longitude');
-            $quadra->save();
-            return $this->sucess($quadras);
-
-          }
+      //
     }
 
     /**
@@ -75,10 +55,6 @@ class QuadraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -100,12 +76,6 @@ class QuadraController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $adotante = Adotante::findOrFail($id);
-            $adotante->delete();
-            return $this->success($adotante);
-          } catch (\Throwable $th) {
-            return $this->error("Erro ao apagar o Adotante!!!", 401, $th->getMessage());
-          }
+        
         }
 }
